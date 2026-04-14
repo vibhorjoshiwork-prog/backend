@@ -75,3 +75,7 @@ REST_FRAMEWORK = {
 # 🔥 SIMPLE CORS (no headache)
 CORS_ALLOW_ALL_ORIGINS = True
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+CSRF_TRUSTED_ORIGINS = [
+    "https://crowd-trust-backend.onrender.com"
+]
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
