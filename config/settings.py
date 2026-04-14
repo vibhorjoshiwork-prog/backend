@@ -4,9 +4,23 @@ import os
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = 'django-insecure-key'
+
 DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
+# 🔥 FIXED HOSTS (IMPORTANT)
+ALLOWED_HOSTS = [
+    "crowd-trust-backend.onrender.com",
+    "localhost",
+    "127.0.0.1",
+]
+
+# 🔥 REQUIRED FOR RENDER
+CSRF_TRUSTED_ORIGINS = [
+    "https://crowd-trust-backend.onrender.com"
+]
+
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+USE_X_FORWARDED_HOST = True
 
 
 INSTALLED_APPS = [
@@ -38,6 +52,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'config.urls'
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -53,6 +68,9 @@ TEMPLATES = [
     },
 ]
 
+WSGI_APPLICATION = 'config.wsgi.application'
+
+# 🔥 DATABASE (SQLite OK for now)
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -60,23 +78,19 @@ DATABASES = {
     }
 }
 
+# 🔥 STATIC FILES
 STATIC_URL = 'static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-
+# 🔥 REST FRAMEWORK (IMPORTANT FIX)
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication',
     ],
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.IsAuthenticated',
+        'rest_framework.permissions.AllowAny',  # 🔥 CHANGED
     ]
 }
 
-# 🔥 SIMPLE CORS (no headache)
+# 🔥 CORS (for frontend later)
 CORS_ALLOW_ALL_ORIGINS = True
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-CSRF_TRUSTED_ORIGINS = [
-    "https://crowd-trust-backend.onrender.com"
-]
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-USE_X_FORWARDED_HOST = True
