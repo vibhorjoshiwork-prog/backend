@@ -5,7 +5,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = 'django-insecure-key'
 
-DEBUG = False
+DEBUG = True
 
 # 🔥 FIXED HOSTS (IMPORTANT)
 ALLOWED_HOSTS = [
@@ -79,7 +79,7 @@ DATABASES = {
 }
 
 # 🔥 STATIC FILES
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # 🔥 REST FRAMEWORK (IMPORTANT FIX)
